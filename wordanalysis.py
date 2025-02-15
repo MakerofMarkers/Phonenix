@@ -142,7 +142,10 @@ def word_to_syllables(english_word):
     
     syllables = align_ipa_to_english(ipa_syll, english_syll)
 
-    return syllables
+    # Return each syllable along with its corresponding word (essentially tagging the syllable with its word)
+    syllables_with_word = [(ipa_syllable, english_syllable, english_word) for (ipa_syllable, english_syllable) in syllables]
+
+    return syllables_with_word
 
 # 
 # `string_to_syllables`
@@ -156,7 +159,12 @@ def word_to_syllables(english_word):
 # @return syllables     syllables as a list of pairs (IPA syllable, corresponding English substring of word)
 def string_to_syllables(sentence):
     words = clean(sentence).split()
-    syllables = [syllable for word in words for syllable in word_to_syllables(word)]
+
+    syllables = []
+
+    for word in words:
+        syllables.append((word_to_syllables(word)))
+    
     return syllables
 
 # 
@@ -175,11 +183,11 @@ def string_to_syllables(sentence):
 #                           transcribed sentence; each element of the list is
 #                           a pair of an IPA syllable and its corresponding
 #                           English substring of the respective word
-def get_diff(transcribed_sentence, target_sentence, similarity_threshold=0.8):
+def get_diff(transcribed_sentence, target_sentence):
     transcribed_syll = string_to_syllables(transcribed_sentence)
     target_syll = string_to_syllables(target_sentence)
 
-    diff_syll = []
+    diff_syll = {}
 
     # Compare syllables using difflib
     matcher = difflib.SequenceMatcher(None, target_syll, transcribed_syll)
@@ -188,32 +196,36 @@ def get_diff(transcribed_sentence, target_sentence, similarity_threshold=0.8):
         if opcode in ["replace", "delete"]:  # Mispronounced or missing syllables
             for i in range(i1, i2):
                 target_pair = target_syll[i]
+                print("TARGET PAIR", target_pair)
                 
                 # Check if the IPA syllable in target exists in any IPA syllable in transcribed
                 match_found = False
                 for j in range(j1, j2):
                     transcribed_pair = transcribed_syll[j]
+                    print("TRANSCRIBED PAIR", transcribed_pair)
                     if target_pair[0] == transcribed_pair[0]:
                         match_found = True
                         break
                 
                 if not match_found:
-                    diff_syll.append(target_pair[1])  # Append the English syllable in target
+                    diff_syll[target_pair[2]] = target_pair[1]
 
     return diff_syll
 
 # TESTING
 def testing():
+
+    print(word_to_syllables("catastrophe"))
+
     str0 = "hello my name is olivia. this is a test!"
     print(string_to_syllables(str0))
 
-    str1 = "cat"
-    str2 = "catastrophe"
+    str1 = "i like cats"
+    str2 = "i like catastrophe"
     print(str1, string_to_syllables(str1))
     print(str2, string_to_syllables(str2))
-    missing = get_diff(str1, str2, similarity_threshold=0.2)
+    missing = get_diff(str1, str2)
     print("Missing syllables:", missing)
 
 if __name__ == "__main__":
-    print(word_to_syllables("catastrophe"))
     testing()
