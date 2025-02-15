@@ -39,7 +39,7 @@ if initialWords_count == 0 and initialSentences_count == 0:
         print("There was an error populating the initial words table.")
 
     from openai import OpenAI
-    client = OpenAI(api_key="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")
+    client = OpenAI(api_key="")
 
     completion = client.chat.completions.create(
     model="gpt-4o-mini",
@@ -66,7 +66,7 @@ if initialWords_count == 0 and initialSentences_count == 0:
 
 elif initialWords_count > 0 and initialSentences_count == 0:
     from openai import OpenAI
-    client = OpenAI(api_key="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")
+    client = OpenAI(api_key="")
 
     completion = client.chat.completions.create(
     model="gpt-4o-mini",
