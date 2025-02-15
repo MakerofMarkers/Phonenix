@@ -189,8 +189,13 @@ def get_diff(transcribed_sentence, target_sentence):
 
     diff_syll = {}
 
+    # Flatten syllables to just their IPA part
+    transcribed_ipa = [pair[0] for pair in transcribed_syll]
+    target_ipa = [pair[0] for pair in target_syll]
+
     # Compare syllables using difflib
-    matcher = difflib.SequenceMatcher(None, target_syll, transcribed_syll)
+    matcher = difflib.SequenceMatcher(None, target_ipa, transcribed_ipa)
+
 
     for opcode, i1, i2, j1, j2 in matcher.get_opcodes():
         if opcode in ["replace", "delete"]:  # Mispronounced or missing syllables
@@ -209,7 +214,9 @@ def get_diff(transcribed_sentence, target_sentence):
                 
                 if not match_found:
                     diff_syll[target_pair[2]] = target_pair[1]
+                    target_
 
+    print("DIFF SYLL", diff_syll)
     return diff_syll
 
 # TESTING
