@@ -1,5 +1,5 @@
 # Phonix
-Where phonics meets the phoenix—a rebirth of speech. Personalized, accessible, and effective speech therapy powered by NLP and CV helping patients of Broca's aphasia on a path to speech recovery.
+_*Where phonics meets the phoenix—a rebirth of speech. Personalized, accessible, and effective speech therapy powered by NLP and CV helping patients of Broca's aphasia on a path to speech recovery.*_
 
 ## Inspiration
 Worldwide, approximately one in four individuals over the age of 25 will experience a stroke in their lifetime, with an estimated 12.2 million people affected annually. Stroke remains a leading cause of disability across the globe, and this issue hits closer to home than we might realize. In fact, recently, a mentor and friend of mine suffered a stroke, resulting in Broca’s aphasia, a form of language impairment where speech production is severely impaired, while comprehension remains largely intact, due to damage in the brain. Broca’s aphasia heavily affects both stroke patients and the elderly in general, as cognitive decline progresses, presenting as an extremely difficult situation to navigate for both the patient and their loved ones. 
