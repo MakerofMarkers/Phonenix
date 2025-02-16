@@ -20,7 +20,7 @@ def generate_words(input_word, struggle_pron):
         {"role": "developer", "content": "You are a helpful assistant who is a linguistic expert in the English language."},
             {
                 "role": "user",
-                "content": "Can you please come up with 5 words with less than 10 letters each that contain the sound " + struggle_pron + " in the word " + input_word + ", for speech therapy purposes? Respond with only the five words in lowercase, formatted in a single line, separated by commas. The words should contain the full syllable.",
+                "content": "Can you please come up with 1 word with less than 10 letters that contain the sound " + struggle_pron + " in the word " + input_word + ", for speech therapy purposes? Respond with only the one word in lowercase, formatted in a single line. The word should contain the full syllable.",
             }
         ]
     )
