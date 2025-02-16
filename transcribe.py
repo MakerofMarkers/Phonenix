@@ -1,5 +1,5 @@
 import whisper
-from wordanalysis import string_to_syllables, get_diff
+from wordanalysis import get_diff
 
 # Ignore the annoying warnings :(
 import warnings
