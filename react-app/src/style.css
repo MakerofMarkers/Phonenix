@@ -1,0 +1,255 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+
+/* 🔹 Full Page Background */
+.outer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f5f5f5; /* Soft Off-White */
+}
+
+/* 🔹 Menu Box */
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 3px solid #adbbda; /* Soft Blue-Grey */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.menu-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #3d52a0; /* Deep Blue */
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* 🔹 Menu Buttons */
+.menu-button {
+  width: 260px;
+  padding: 12px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+/* Button Colors */
+.words {
+  background-color: #7091e6; /* Muted Blue */
+}
+.words:hover {
+  background-color: #5a7bd3;
+}
+
+.sentences {
+  background-color: #3d52a0; /* Deep Blue */
+}
+.sentences:hover {
+  background-color: #2f3e85;
+}
+
+.stats {
+  background-color: #8697c4; /* Soft Blue-Grey */
+}
+.stats:hover {
+  background-color: #6b82af;
+}
+
+.headerBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Distributes buttons to left & right */
+  height: 60px;
+  padding: 0 20px;
+  background-color: #3d52a0; /* Deep Blue */
+}
+
+/* 🔹 Home & Logout Buttons */
+.homeButton {
+  padding: 10px 18px;
+  background-color: #adbbda; /* Muted Blue-Grey */
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  color: #3d52a0; /* Text Color */
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.homeButton:hover {
+  background-color: #8697c4; /* Softer Blue */
+  color: white;
+}
+
+/* 🔹 Main Layout */
+.belowHeaderBar {
+  display: flex;
+  flex-direction: row;
+}
+
+/* 🔹 Left Section */
+.screenLeft {
+  width: 60%;
+  text-align: center;
+}
+
+/* Buttons Section */
+.buttons {
+  padding: 30px;
+  margin-top: 50px;
+}
+
+/* 🔹 Buttons for Sentence/Word Practice */
+.topBarButton {
+  font-size: 20px;
+  padding: 10px;
+  margin: 35px 35px 5px 50px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+/* Add new sentence button here */
+.newWordButton,
+.newSentenceButton {
+  margin-top: 35px;
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  background-color: #7091e6; /* Muted Blue */
+  margin-right: 70px;
+}
+
+.practiceSimilarButton {
+  margin-top: 35px;
+  padding: 15px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  background-color: #3d52a0; /* Deep Blue */
+}
+
+.topBarButton {
+  background-color: #7091e6; /* Muted Blue */
+  color: white;
+}
+.topBarButton:hover {
+  background-color: #5a7bd3;
+}
+
+.practiceSimilarButton {
+  background-color: #3d52a0; /* Deep Blue */
+  color: white;
+}
+.practiceSimilarButton:hover {
+  background-color: #2f3e85;
+}
+
+/* 🔹 Text Card (No Changes to Dimensions) */
+.card {
+  font-size: 50px;
+  padding: 30px;
+  height: 25vh;
+  margin-left: 20%;
+  margin-right: 20%;
+  background-color: #edeaf5; /* Softest Blue */
+  border-radius: 20px;
+  box-shadow: 2px 2px 2px 1px rgba(12, 31, 52, 0.2);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+.textSentence,
+.textWord {
+  font-size: 40px;
+  padding: 30px;
+  text-align: center;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 🔹 Sound Button */
+.soundButton {
+  height: 50px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+.soundButton:hover {
+  transform: scale(1.1);
+}
+
+/* 🔹 Right Section (Camera) */
+.screenRight {
+  width: 35%;
+  height: calc(80vh - 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cameraFrame {
+  width: 100%;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  margin-right: 5%;
+  border-radius: 20px;
+}
+
+/* 🔹 Bottom Feedback Bar */
+.bottomBar {
+  background-color: #edeaf5; /* Softest Blue */
+  height: 20vh;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+/* Feedback Box */
+.feedBack {
+  width: 400px;
+  height: 120px;
+  background: white;
+  border-radius: 25px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
