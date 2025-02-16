@@ -1,4 +1,5 @@
 import eng_to_ipa as p
+# from allosaurus.app import *
 
 # define letters
 EN_VOWELS = "aeiouy"
@@ -213,6 +214,9 @@ def get_diff(transcribed_sentence, target_sentence):
 
 # TESTING
 # def testing():
+#     audio_path = "speechtest.wav"
+#    time_stamps = get_time_stamps(audio_path)
+#    print(time_stamps)
 
 #     # print(word_to_syllables("catastrophe"))
 
@@ -223,7 +227,7 @@ def get_diff(transcribed_sentence, target_sentence):
 #     target = "i like syllable"
     
 #     missing = get_diff(transcribed, target)
-#     print("Missing syllables:", missing)
+#     print("Missing syllables:")
 
 # if __name__ == "__main__":
 #     testing()
