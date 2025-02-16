@@ -8,13 +8,22 @@ IPA_VOWELS = "ɑɒæəɛɜɪiʊuʌʏoɔ"
 EN_LETTERS = "abcdefghijklmnopqrstuvwxyz"
 IPA_LETTERS = "aeiouɑɛɪɔʊəæœɒpbtdʈɖcɟkgqɢʡʔmɱnɳɲŋɴʙrʀⱱɾɽɸβfvθðszʃʒʂʐɕʑçʝxɣχʁħʕhɦɬɮʋɹɻjɰlɭʎʟɺɧʧ"
 
+# 
+# `flatten_list`
+# 
+# This function flattens a list of tuples and lists of tuples into a list of
+# just tuples.
+# 
+# @param input_list     list to be flattened
+#
+# @return flattened     flattened list of tuples
 def flatten_list(input_list):
     flattened = []
     
     for item in input_list:
-        if isinstance(item, tuple):  # If the item is a tuple, add it to the result
+        if isinstance(item, tuple):
             flattened.append(item)
-        elif isinstance(item, list):  # If the item is a list, flatten it recursively
+        elif isinstance(item, list):
             flattened.extend(flatten_list(item))
     
     return flattened
@@ -33,18 +42,6 @@ def clean(text):
     valid_char = set(EN_LETTERS + IPA_LETTERS + " ")
     clean_text = "".join(char for char in text if char in valid_char)
     return clean_text
-
-# 
-# `is_vowel`
-# 
-# This function checks if a given phoneme is a vowel based on IPA symbols
-# 
-# @param phoneme        IPA phoneme
-#
-# @return bool          true if a phoneme is a vowel based on IPA symbols,
-#                       false otherwise
-def is_vowel(phoneme):
-    return any(char in phoneme for char in IPA_VOWELS)
 
 # 
 # `syllabify_ipa`
