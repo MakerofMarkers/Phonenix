@@ -1,6 +1,4 @@
 import eng_to_ipa as p
-import difflib
-import unicodedata
 
 # define letters
 EN_VOWELS = "aeiouy"
@@ -214,18 +212,18 @@ def get_diff(transcribed_sentence, target_sentence):
     return diff_syllables
 
 # TESTING
-def testing():
+# def testing():
 
-    # print(word_to_syllables("catastrophe"))
+#     # print(word_to_syllables("catastrophe"))
 
-    # str0 = "hello my name is olivia. this is a test!"
-    # print(string_to_syllables(str0))
+#     # str0 = "hello my name is olivia. this is a test!"
+#     # print(string_to_syllables(str0))
 
-    transcribed = "i like silhouette"
-    target = "i like syllable"
+#     transcribed = "i like silhouette"
+#     target = "i like syllable"
     
-    missing = get_diff(transcribed, target)
-    print("Missing syllables:", missing)
+#     missing = get_diff(transcribed, target)
+#     print("Missing syllables:", missing)
 
-if __name__ == "__main__":
-    testing()
+# if __name__ == "__main__":
+#     testing()
