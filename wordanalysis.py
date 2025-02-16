@@ -1,11 +1,23 @@
 import eng_to_ipa as p
 import difflib
-import re
+import unicodedata
 
 # define letters
 EN_VOWELS = "aeiouy"
 IPA_VOWELS = "ɑɒæəɛɜɪiʊuʌʏoɔ"
 EN_LETTERS = "abcdefghijklmnopqrstuvwxyz"
+IPA_LETTERS = "aeiouɑɛɪɔʊəæœɒpbtdʈɖcɟkgqɢʡʔmɱnɳɲŋɴʙrʀⱱɾɽɸβfvθðszʃʒʂʐɕʑçʝxɣχʁħʕhɦɬɮʋɹɻjɰlɭʎʟɺɧʧ"
+
+def flatten_list(input_list):
+    flattened = []
+    
+    for item in input_list:
+        if isinstance(item, tuple):  # If the item is a tuple, add it to the result
+            flattened.append(item)
+        elif isinstance(item, list):  # If the item is a list, flatten it recursively
+            flattened.extend(flatten_list(item))
+    
+    return flattened
 
 # 
 # `clean`
@@ -18,7 +30,7 @@ EN_LETTERS = "abcdefghijklmnopqrstuvwxyz"
 # @return clean_text    text cleared of non-letter and non-space characters
 def clean(text):
     text = text.lower()
-    valid_char = set(EN_LETTERS + " ")
+    valid_char = set(EN_LETTERS + IPA_LETTERS + " ")
     clean_text = "".join(char for char in text if char in valid_char)
     return clean_text
 
@@ -103,14 +115,13 @@ def syllabify_english(english_word):
 # 
 # `align_ipa_to_english`
 # 
-# This function
+# This function aligns IPA syllables to English word syllables.
 # 
-# @param 
-# @param
+# @param ipa_syllables
+# @param english_syllables
 # 
-# @return
+# @return aligned_syllables list of pairs (IPA syllable, English syllable)
 def align_ipa_to_english(ipa_syllables, english_syllables):
-    """Aligns IPA syllables with their corresponding English syllables."""
     aligned_syllables = []
 
     min_len = min(len(ipa_syllables), len(english_syllables))
@@ -136,7 +147,7 @@ def align_ipa_to_english(ipa_syllables, english_syllables):
 #                       word_to_syllables("kəˈtæstrəfi", "catastrophe") returns
 #                       { "kə": "ca", "tæ": "ta", "strə": "stro", "fi": "phe" }
 def word_to_syllables(english_word):
-    ipa_word = p.convert(english_word)  # Convert to IPA
+    ipa_word = clean(p.convert(english_word))  # Convert to IPA
     ipa_syll = syllabify_ipa(ipa_word)  # Get IPA syllables
     english_syll = syllabify_english(english_word)  # Get English syllables
     
@@ -165,7 +176,7 @@ def string_to_syllables(sentence):
     for word in words:
         syllables.append((word_to_syllables(word)))
     
-    return syllables
+    return flatten_list(syllables)
 
 # 
 # `get_diff`
@@ -179,59 +190,44 @@ def string_to_syllables(sentence):
 # @param transcribed_sentence transcribed sentence
 # @param target_sentence    target sentence
 # 
-# @return diff_words        a list of syllables in target but not in 
+# @return diff_syll         a list of syllables in target but not in 
 #                           transcribed sentence; each element of the list is
-#                           a pair of an IPA syllable and its corresponding
-#                           English substring of the respective word
+#                           a pair (word, syllable)
 def get_diff(transcribed_sentence, target_sentence):
-    transcribed_syll = string_to_syllables(transcribed_sentence)
-    target_syll = string_to_syllables(target_sentence)
+    # Convert both sentences to syllables (IPA syllables and corresponding English words)
+    transcribed_syllables = string_to_syllables(transcribed_sentence)
+    target_syllables = string_to_syllables(target_sentence)
 
-    diff_syll = {}
+    diff_syllables = []
 
-    # Flatten syllables to just their IPA part
-    transcribed_ipa = [pair[0] for pair in transcribed_syll]
-    target_ipa = [pair[0] for pair in target_syll]
+    # Get IPA syllable
+    transcribed_ipa = [pair[0] for pair in transcribed_syllables]
+    target_ipa = [pair[0] for pair in target_syllables]
 
-    # Compare syllables using difflib
-    matcher = difflib.SequenceMatcher(None, target_ipa, transcribed_ipa)
+    # Compare IPA syllables in target with transcribed
+    for target_pair in target_syllables:
+        target_ipa_syllable = target_pair[0]
+        target_english_syllable = target_pair[1]
+        target_word = target_pair[2]
 
+        # Append all (word, English syllable) pairs for mispronounced or missing syllable
+        if target_ipa_syllable not in transcribed_ipa:
+            diff_syllables.append((target_word, target_english_syllable))
 
-    for opcode, i1, i2, j1, j2 in matcher.get_opcodes():
-        if opcode in ["replace", "delete"]:  # Mispronounced or missing syllables
-            for i in range(i1, i2):
-                target_pair = target_syll[i]
-                print("TARGET PAIR", target_pair)
-                
-                # Check if the IPA syllable in target exists in any IPA syllable in transcribed
-                match_found = False
-                for j in range(j1, j2):
-                    transcribed_pair = transcribed_syll[j]
-                    print("TRANSCRIBED PAIR", transcribed_pair)
-                    if target_pair[0] == transcribed_pair[0]:
-                        match_found = True
-                        break
-                
-                if not match_found:
-                    diff_syll[target_pair[2]] = target_pair[1]
-                    target_
-
-    print("DIFF SYLL", diff_syll)
-    return diff_syll
+    return diff_syllables
 
 # TESTING
 def testing():
 
-    print(word_to_syllables("catastrophe"))
+    # print(word_to_syllables("catastrophe"))
 
-    str0 = "hello my name is olivia. this is a test!"
-    print(string_to_syllables(str0))
+    # str0 = "hello my name is olivia. this is a test!"
+    # print(string_to_syllables(str0))
 
-    str1 = "i like cats"
-    str2 = "i like catastrophe"
-    print(str1, string_to_syllables(str1))
-    print(str2, string_to_syllables(str2))
-    missing = get_diff(str1, str2)
+    transcribed = "i like silhouette"
+    target = "i like syllable"
+    
+    missing = get_diff(transcribed, target)
     print("Missing syllables:", missing)
 
 if __name__ == "__main__":
